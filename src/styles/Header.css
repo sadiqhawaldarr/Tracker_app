@@ -1,0 +1,108 @@
+/* ============================================================
+   Header.css — Sticky top navigation
+   ============================================================ */
+
+.header {
+  background: var(--deep-alt);
+  border-bottom: 1px solid var(--gold-border);
+  padding: 0 var(--sp-lg);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.header__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-md);
+}
+
+/* ── Logo / Brand ── */
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: default;
+  user-select: none;
+}
+
+.header__crescent {
+  font-size: 26px;
+  line-height: 1;
+  display: inline-block;
+  animation: sway 4s ease-in-out infinite;
+  color: var(--gold);
+}
+
+.header__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.header__brand-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+.header__brand-sub {
+  font-family: var(--font-body);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.10em;
+  line-height: 1;
+}
+
+/* ── Geolocation Button ── */
+.header__geo-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--gold-glow);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--r-sm);
+  padding: 8px 14px;
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition:
+    background var(--t-base),
+    border-color var(--t-base),
+    color var(--t-base);
+  white-space: nowrap;
+}
+
+.header__geo-btn:hover:not(:disabled) {
+  background: rgba(212, 168, 50, 0.20);
+  border-color: rgba(212, 168, 50, 0.45);
+}
+
+.header__geo-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.header__geo-btn--active {
+  background: var(--emerald-pale);
+  border-color: var(--emerald-border);
+  color: var(--emerald-text);
+  animation: pulseGold 2s ease infinite;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .header__brand-title { font-size: 10px; }
+  .header__geo-label   { display: none; }
+  .header__geo-btn     { padding: 8px 10px; }
+}

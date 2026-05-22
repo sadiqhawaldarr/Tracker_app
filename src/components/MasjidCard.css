@@ -1,0 +1,213 @@
+/* Individual masjid listing card */
+
+.masjid-card {
+  background: linear-gradient(180deg, #ffffff 0%, #fbf5e4 100%);
+  border: 1px solid rgba(20, 107, 93, 0.16);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 392px;
+  height: 100%;
+  animation: fadeUp 0.55s var(--ease) both;
+  transition:
+    border-color var(--t-base),
+    transform var(--t-slow),
+    box-shadow var(--t-slow);
+}
+
+.masjid-card:hover,
+.masjid-card:focus-within {
+  border-color: rgba(20, 107, 93, 0.34);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-gold);
+}
+
+.masjid-card__img-wrap {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.masjid-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--t-slow);
+}
+
+.masjid-card:hover .masjid-card__img {
+  transform: scale(1.06);
+}
+
+.masjid-card__img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(18, 33, 27, 0.88) 0%,
+    rgba(18, 33, 27, 0.16) 58%,
+    transparent 100%
+  );
+}
+
+.masjid-card__eid-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  color: var(--emerald);
+  padding: 5px 11px;
+  border-radius: var(--r-pill);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0;
+  backdrop-filter: blur(4px);
+}
+
+.masjid-card__name-block {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  right: 14px;
+}
+
+.masjid-card__name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: #fffaf0;
+  line-height: 1.3;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+  margin: 0;
+}
+
+.masjid-card__area {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: #ffe6a7;
+  margin-top: 3px;
+  letter-spacing: 0;
+}
+
+.masjid-card__body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 12px;
+}
+
+.masjid-card__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.masjid-card__meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: #4d6258;
+  min-width: 0;
+}
+
+.masjid-card__meta-item svg {
+  color: var(--emerald);
+  flex-shrink: 0;
+}
+
+.masjid-card__tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.masjid-card__tag {
+  background: #f2fbf7;
+  border: 1px solid rgba(33, 140, 120, 0.18);
+  color: var(--emerald);
+  border-radius: 999px;
+  padding: 4px 9px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.masjid-card__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.masjid-card__btn {
+  flex: 1;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: var(--r-sm);
+  border: 1px solid;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-align: center;
+  transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast);
+}
+
+.masjid-card__btn:active {
+  transform: scale(0.97);
+}
+
+.masjid-card__btn--details {
+  border-color: rgba(184, 121, 22, 0.36);
+  color: var(--gold-dim);
+  background: #fff8e6;
+}
+
+.masjid-card__btn--details:hover {
+  background: var(--gold);
+  color: #fff;
+}
+
+.masjid-card__btn--nav {
+  border-color: var(--emerald);
+  color: #fff;
+  background: var(--emerald);
+}
+
+.masjid-card__btn--nav:hover {
+  background: var(--emerald-light);
+  color: #fff;
+}
+
+@media (min-width: 961px) {
+  .masjid-card__img-wrap {
+    height: 188px;
+  }
+}
+
+@media (max-width: 420px) {
+  .masjid-card {
+    min-height: auto;
+  }
+
+  .masjid-card__img-wrap {
+    height: 168px;
+  }
+
+  .masjid-card__meta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .masjid-card__actions {
+    flex-direction: column;
+  }
+}

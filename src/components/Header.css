@@ -1,0 +1,166 @@
+/* ============================================================
+   Header.css — Sticky top navigation
+   ============================================================ */
+
+.header {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.96), rgba(245, 252, 248, 0.96)),
+    repeating-linear-gradient(45deg, rgba(20, 107, 93, 0.08) 0 6px, transparent 6px 18px);
+  border-bottom: 2px solid rgba(184, 121, 22, 0.24);
+  padding: 0 var(--sp-lg);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.header__inner {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-md);
+}
+
+.header__inner::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 4px;
+  background: linear-gradient(90deg, #146b5d 0 18%, #e5b84d 18% 31%, #234f73 31% 44%, #9e5138 44% 57%, #146b5d 57% 74%, #e5b84d 74% 100%);
+}
+
+/* ── Logo / Brand ── */
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid rgba(20, 107, 93, 0.14);
+  border-radius: 8px;
+  background: #f5fbf7;
+}
+
+.header__nav-link {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 12px;
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.header__nav-link--active {
+  background: var(--emerald);
+  color: #fff;
+}
+
+.header__crescent {
+  font-size: 26px;
+  line-height: 1;
+  display: inline-block;
+  animation: sway 4s ease-in-out infinite;
+  color: #fff;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 2px solid rgba(229, 184, 77, 0.72);
+  border-radius: 50%;
+  background: radial-gradient(circle, #218c78 0 52%, #146b5d 53% 100%);
+  box-shadow: 0 8px 22px rgba(20, 107, 93, 0.2);
+}
+
+.header__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.header__brand-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+.header__brand-sub {
+  font-family: var(--font-body);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.10em;
+  line-height: 1;
+}
+
+/* ── Geolocation Button ── */
+.header__geo-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--gold-glow);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--r-sm);
+  padding: 8px 14px;
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition:
+    background var(--t-base),
+    border-color var(--t-base),
+    color var(--t-base);
+  white-space: nowrap;
+}
+
+.header__geo-btn:hover:not(:disabled) {
+  background: rgba(212, 168, 50, 0.20);
+  border-color: rgba(212, 168, 50, 0.45);
+}
+
+.header__geo-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.header__geo-btn--active {
+  background: var(--emerald-pale);
+  border-color: var(--emerald-border);
+  color: var(--emerald-text);
+  animation: pulseGold 2s ease infinite;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .header__brand-title { font-size: 10px; }
+  .header__brand-sub   { display: none; }
+  .header__geo-label   { display: none; }
+  .header__geo-btn     { padding: 8px 10px; }
+  .header__actions     { gap: 8px; }
+  .header__nav-link    { padding: 7px 9px; }
+}

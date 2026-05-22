@@ -1,0 +1,157 @@
+/* ============================================================
+   SearchBar.css — Sticky search + filter bar
+   ============================================================ */
+
+.searchbar {
+  background: rgba(20, 28, 36, 0.97);
+  border-bottom: 1px solid var(--gold-border);
+  padding: 14px var(--sp-lg);
+  position: sticky;
+  top: 64px;           /* sits directly below the 64 px header */
+  z-index: 40;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.searchbar__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Inputs Row ── */
+.searchbar__row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Search field */
+.searchbar__field {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchbar__icon {
+  position: absolute;
+  left: 12px;
+  color: var(--text-muted);
+  display: flex;
+  pointer-events: none;
+}
+
+.searchbar__input {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--r-md);
+  color: var(--text-primary);
+  padding: 10px 36px 10px 38px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+
+.searchbar__input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 168, 50, 0.10);
+}
+
+.searchbar__input::placeholder { color: var(--text-muted); }
+
+/* Built-in search cancel button reset */
+.searchbar__input::-webkit-search-cancel-button { display: none; }
+
+.searchbar__clear-x {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 18px;
+  line-height: 1;
+  padding: 2px 4px;
+  transition: color var(--t-fast);
+}
+.searchbar__clear-x:hover { color: var(--gold); }
+
+/* Selects */
+.searchbar__select {
+  background: var(--surface-2);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--r-md);
+  color: var(--text-primary);
+  padding: 10px 34px 10px 14px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+  min-width: 158px;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%23a09070' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  transition: border-color var(--t-fast);
+}
+.searchbar__select:focus   { border-color: var(--gold); }
+.searchbar__select option  { background: var(--surface-2); color: var(--text-primary); }
+
+/* ── Result info row ── */
+.searchbar__info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.3s ease both;
+}
+
+.searchbar__count {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.searchbar__count strong { color: var(--gold); font-weight: 700; }
+
+.searchbar__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--gold-glow);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--r-pill);
+  padding: 3px 10px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.searchbar__reset {
+  background: none;
+  border: none;
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: var(--r-sm);
+  transition: background var(--t-fast);
+}
+.searchbar__reset:hover { background: var(--gold-glow); }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .searchbar { top: 64px; padding: 12px var(--sp-md); }
+  .searchbar__row { flex-direction: column; align-items: stretch; }
+  .searchbar__field { min-width: unset; }
+  .searchbar__select { min-width: unset; width: 100%; }
+}

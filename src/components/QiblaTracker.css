@@ -1,0 +1,304 @@
+.qibla {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: clamp(18px, 4vw, 34px);
+  align-items: center;
+  width: min(1120px, calc(100% - 32px));
+  margin: 34px auto 80px;
+  padding: clamp(20px, 4vw, 32px);
+  overflow: hidden;
+  border: 1px solid rgba(20, 107, 93, 0.2);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(239, 249, 243, 0.96)),
+    repeating-linear-gradient(45deg, rgba(184, 121, 22, 0.08) 0 8px, transparent 8px 22px);
+  box-shadow: 0 18px 42px rgba(30, 56, 44, 0.1);
+}
+
+.qibla::before,
+.qibla::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  pointer-events: none;
+  border: 1px solid rgba(184, 121, 22, 0.24);
+  clip-path: polygon(5% 0, 95% 0, 100% 16%, 100% 84%, 95% 100%, 5% 100%, 0 84%, 0 16%);
+}
+
+.qibla::after {
+  inset: 18px;
+  border-color: rgba(20, 107, 93, 0.18);
+}
+
+.qibla--compact {
+  width: 100%;
+  margin: 22px 0 0;
+}
+
+.qibla__content {
+  position: relative;
+  z-index: 1;
+}
+
+.qibla__eyebrow {
+  color: var(--emerald);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.qibla h2 {
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.15;
+  margin: 8px 0 10px;
+}
+
+.qibla p {
+  max-width: 560px;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.qibla p strong {
+  color: var(--gold-dim);
+  font-weight: 900;
+}
+
+.qibla__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.qibla__facts div {
+  min-height: 76px;
+  padding: 13px 14px;
+  border: 1px solid rgba(20, 107, 93, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.qibla__facts dt {
+  color: var(--emerald);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.qibla__facts dd {
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 800;
+  margin-top: 6px;
+}
+
+.qibla__selectors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.qibla__select {
+  display: grid;
+  gap: 7px;
+}
+
+.qibla__select span {
+  color: var(--emerald);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.qibla__select select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid rgba(20, 107, 93, 0.18);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 0 38px 0 12px;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%23146b5d' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+.qibla__select select:disabled {
+  color: var(--text-faint);
+  background-color: #f4f8f5;
+  cursor: not-allowed;
+}
+
+.qibla__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.qibla__actions button {
+  min-height: 42px;
+  padding: 9px 14px;
+  border: 1px solid rgba(20, 107, 93, 0.18);
+  border-radius: 8px;
+  background: var(--emerald);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.qibla__actions button:nth-child(2) {
+  background: #fff;
+  color: var(--emerald);
+}
+
+.qibla__actions button:disabled {
+  opacity: 0.62;
+  cursor: not-allowed;
+}
+
+.qibla__status {
+  margin-top: 12px;
+  padding: 9px 11px;
+  border: 1px solid rgba(184, 121, 22, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 248, 230, 0.74);
+  color: var(--gold-dim);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.qibla__dial {
+  position: relative;
+  z-index: 1;
+  width: 240px;
+  aspect-ratio: 1;
+  justify-self: center;
+  border: 10px solid #fff;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, #fff 0 15%, transparent 15.5%),
+    conic-gradient(from 0deg, #0f6f60, #e4b43f, #234f73, #9e5138, #0f6f60);
+  box-shadow:
+    inset 0 0 0 1px rgba(20, 107, 93, 0.22),
+    inset 0 0 0 18px rgba(255, 255, 255, 0.72),
+    0 18px 36px rgba(30, 56, 44, 0.18);
+}
+
+.qibla__dial::before {
+  content: "";
+  position: absolute;
+  inset: 36px;
+  border-radius: 50%;
+  background: #fdfaf0;
+  box-shadow: inset 0 0 0 1px rgba(184, 121, 22, 0.22);
+}
+
+.qibla__mark {
+  position: absolute;
+  z-index: 2;
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.qibla__mark--n { top: 17px; left: 50%; transform: translateX(-50%); }
+.qibla__mark--e { right: 20px; top: 50%; transform: translateY(-50%); }
+.qibla__mark--s { bottom: 17px; left: 50%; transform: translateX(-50%); }
+.qibla__mark--w { left: 20px; top: 50%; transform: translateY(-50%); }
+
+.qibla__needle {
+  position: absolute;
+  inset: 24px;
+  z-index: 3;
+  transform-origin: center;
+  transition: transform 0.18s linear;
+  will-change: transform;
+}
+
+.qibla__needle span {
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  width: 16px;
+  height: 94px;
+  transform: translateX(-50%);
+  clip-path: polygon(50% 0, 100% 100%, 50% 84%, 0 100%);
+  background: linear-gradient(180deg, #9e5138, #e5b84d);
+  box-shadow: 0 6px 16px rgba(122, 64, 38, 0.26);
+}
+
+.qibla__center {
+  position: absolute;
+  z-index: 4;
+  inset: 50%;
+  width: 26px;
+  height: 26px;
+  transform: translate(-50%, -50%);
+  border: 5px solid #fff;
+  border-radius: 50%;
+  background: var(--emerald);
+  box-shadow: 0 4px 12px rgba(30, 56, 44, 0.22);
+}
+
+.qibla__degree {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  bottom: 54px;
+  transform: translateX(-50%);
+  color: var(--gold-dim);
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.qibla__heading {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  bottom: 34px;
+  transform: translateX(-50%);
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .qibla {
+    grid-template-columns: 1fr;
+    width: min(100% - 24px, 1120px);
+  }
+
+  .qibla__facts {
+    grid-template-columns: 1fr;
+  }
+
+  .qibla__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .qibla__selectors {
+    grid-template-columns: 1fr;
+  }
+
+  .qibla__dial {
+    width: min(230px, 80vw);
+  }
+}
