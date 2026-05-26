@@ -13,6 +13,8 @@ const formatEidTime = time => {
   return `${displayHours}:${minutes} ${period}`;
 };
 
+const publicAsset = path => `${process.env.PUBLIC_URL || ''}${path}`;
+
 const MasjidList = memo(function MasjidList({
   masjids,
   stats,
@@ -47,7 +49,7 @@ const MasjidList = memo(function MasjidList({
             <h2 className="masjid-list__audio-title">Listen before checking namaz timings</h2>
           </div>
           <audio className="masjid-list__audio-player" controls preload="metadata">
-            <source src="/eid-takbeer.mp3" type="audio/mpeg" />
+            <source src={publicAsset('/eid-takbeer.mp3')} type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
         </section>
