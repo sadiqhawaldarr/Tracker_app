@@ -132,6 +132,41 @@
   width: 100%;
 }
 
+.masjid-list__audio {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border: 1px solid rgba(20, 107, 93, 0.16);
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ffffff 0%, #f3fbf6 58%, #fff8e6 100%);
+  box-shadow: 0 16px 36px rgba(30, 56, 44, 0.09);
+  margin-bottom: 18px;
+  padding: 16px 18px;
+}
+
+.masjid-list__audio-label {
+  color: var(--gold-dim);
+  display: block;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.masjid-list__audio-title {
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 18px;
+  line-height: 1.25;
+  margin-top: 4px;
+}
+
+.masjid-list__audio-player {
+  width: min(100%, 420px);
+}
+
 /* Alert */
 .masjid-list__alert {
   background: var(--danger-bg);
@@ -148,23 +183,236 @@
   animation: fadeUp 0.3s ease both;
 }
 
-/* 3-column responsive grid */
-.masjid-list__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  gap: var(--sp-lg);
-  align-items: stretch;
+.masjid-list__table-wrap {
+  overflow-x: auto;
+  border: 1px solid rgba(20, 107, 93, 0.16);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 18px 42px rgba(30, 56, 44, 0.1);
 }
 
-@media (max-width: 960px) {
-  .masjid-list__grid {
-    gap: var(--sp-md);
+.masjid-list__table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+}
+
+.masjid-list__table th {
+  background: linear-gradient(135deg, #dff6e8 0%, #f2fbf6 58%, #fff8df 100%);
+  color: var(--emerald);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1.35;
+  padding: 15px 18px;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.masjid-list__table td {
+  border-top: 1px solid rgba(20, 107, 93, 0.1);
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.55;
+  padding: 16px 18px;
+  vertical-align: middle;
+}
+
+.masjid-list__table tbody tr {
+  transition: background var(--t-base);
+}
+
+.masjid-list__table tbody tr:hover {
+  background: #f7fdf9;
+}
+
+.masjid-list__name-button {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.3;
+  padding: 0;
+  text-align: left;
+}
+
+.masjid-list__name-button:hover {
+  color: var(--emerald);
+}
+
+.masjid-list__area {
+  display: block;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.masjid-list__eid-time {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  border: 1px solid rgba(184, 121, 22, 0.22);
+  border-radius: 8px;
+  background: #fff8e6;
+  color: var(--gold-dim);
+  font-weight: 900;
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+
+.masjid-list__address-button {
+  min-height: 34px;
+  border: 1px solid rgba(20, 107, 93, 0.2);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--emerald);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 900;
+  padding: 7px 12px;
+  white-space: nowrap;
+}
+
+.masjid-list__address-button:hover {
+  background: var(--emerald-pale);
+}
+
+.masjid-list__address-row td {
+  background: #f7fdf9;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.55;
+  padding: 12px 18px;
+}
+
+.masjid-list__address-label {
+  color: var(--emerald);
+  font-weight: 900;
+  margin-right: 8px;
+}
+
+@media (max-width: 700px) {
+  .masjid-list {
+    max-width: none;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 16px 10px 52px;
   }
-}
 
-@media (max-width: 600px) {
-  .masjid-list { padding: var(--sp-lg) var(--sp-md) 60px; }
-  .masjid-list__grid { grid-template-columns: minmax(0, 1fr); gap: var(--sp-md); }
+  .masjid-list__audio {
+    align-items: stretch;
+    border-radius: 8px;
+    box-shadow: none;
+    flex-direction: column;
+    margin-bottom: 14px;
+    padding: 14px 12px;
+  }
+
+  .masjid-list__audio-title {
+    font-size: 15px;
+  }
+
+  .masjid-list__audio-player {
+    width: 100%;
+  }
+
+  .masjid-list__table-wrap {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    border: 1px solid rgba(20, 107, 93, 0.14);
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: none;
+  }
+
+  .masjid-list__table {
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+  }
+
+  .masjid-list__table th {
+    font-size: 9px;
+    letter-spacing: 0;
+    line-height: 1.2;
+    padding: 9px 4px;
+    white-space: nowrap;
+  }
+
+  .masjid-list__table td {
+    font-size: 11px;
+    line-height: 1.25;
+    padding: 8px 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .masjid-list__table th:nth-child(1),
+  .masjid-list__table td:nth-child(1) {
+    width: 47%;
+  }
+
+  .masjid-list__table th:nth-child(2),
+  .masjid-list__table td:nth-child(2) {
+    width: 21%;
+    text-align: center;
+  }
+
+  .masjid-list__table th:nth-child(3),
+  .masjid-list__table td:nth-child(3) {
+    width: 32%;
+    text-align: right;
+  }
+
+  .masjid-list__name-button {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 11px;
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+
+  .masjid-list__area {
+    display: none;
+  }
+
+  .masjid-list__eid-time {
+    display: block;
+    justify-content: flex-end;
+    min-height: 0;
+    max-width: 100%;
+    border: 0;
+    background: transparent;
+    font-size: 11px;
+    padding: 0;
+    text-align: right;
+  }
+
+  .masjid-list__address-button {
+    min-height: 26px;
+    max-width: 100%;
+    font-size: 10px;
+    padding: 4px 5px;
+  }
+
+  .masjid-list__address-row td {
+    text-align: left;
+    white-space: normal;
+    padding: 9px 10px;
+  }
 }
 
 /* Empty state */
@@ -453,6 +701,15 @@
   font-size: 11px;
   color: var(--text-faint);
   letter-spacing: 0.05em;
+}
+
+.site-footer__team {
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin-top: 8px;
 }
 
 /* Detail page */

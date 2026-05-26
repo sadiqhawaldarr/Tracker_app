@@ -43,6 +43,11 @@ export default function useMasjidFilter(masjids) {
     return counts;
   }, [masjids]);
 
+  const eidTimeOptions = useMemo(
+    () => [...new Set(masjids.map(masjid => masjid.eidTime).filter(Boolean))].sort(),
+    [masjids]
+  );
+
   const clearFilters = useCallback(() => {
     setSearchQuery('');
     setSelectedEidTime('all');
@@ -56,6 +61,7 @@ export default function useMasjidFilter(masjids) {
     filteredMasjids,
     hasActiveFilters: searchQuery.trim() !== '' || selectedEidTime !== 'all',
     stats,
+    eidTimeOptions,
     handleSearchChange: setSearchQuery,
     handleTimeFilter: setSelectedEidTime,
     handleSortChange: setSortBy,

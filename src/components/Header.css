@@ -157,10 +157,22 @@
 
 /* ── Responsive ── */
 @media (max-width: 480px) {
+  .header { padding: 0 6px; }
+  .header__inner {
+    width: 100%;
+    gap: 6px;
+  }
+  .header__logo { gap: 6px; }
+  .header__crescent {
+    width: 34px;
+    height: 34px;
+    font-size: 21px;
+  }
   .header__brand-title { font-size: 10px; }
   .header__brand-sub   { display: none; }
   .header__geo-label   { display: none; }
-  .header__geo-btn     { padding: 8px 10px; }
-  .header__actions     { gap: 8px; }
-  .header__nav-link    { padding: 7px 9px; }
+  .header__geo-btn     { padding: 8px 8px; }
+  .header__actions     { gap: 5px; min-width: 0; }
+  .header__nav         { gap: 3px; padding: 3px; }
+  .header__nav-link    { padding: 7px 6px; font-size: 11px; }
 }

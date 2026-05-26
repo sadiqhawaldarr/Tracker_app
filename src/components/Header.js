@@ -44,9 +44,6 @@ const Header = memo(function Header({
             <a className={currentView === 'user' ? 'header__nav-link header__nav-link--active' : 'header__nav-link'} href="/">
               User
             </a>
-            <a className={currentView === 'admin' ? 'header__nav-link header__nav-link--active' : 'header__nav-link'} href="/admin">
-              Admin
-            </a>
             <a className={currentView === 'tasbih' ? 'header__nav-link header__nav-link--active' : 'header__nav-link'} href="/tasbih">
               Tasbih
             </a>

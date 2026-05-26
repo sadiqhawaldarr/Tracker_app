@@ -7,6 +7,7 @@ const SiteFooter = memo(function SiteFooter() {
       <p className="site-footer__trans">May Allah accept from us and from you</p>
       <div className="site-footer__divider" aria-hidden="true" />
       <p className="site-footer__sub">Vijayapura Eid Namaz Guide | {new Date().getFullYear()}</p>
+      <p className="site-footer__team">Team : Fi Sabilillah</p>
     </footer>
   );
 });

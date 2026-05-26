@@ -1,8 +1,17 @@
 import React, { memo } from 'react';
 
-const EID_TIME_LABELS = { '07:00': '7:00 AM', '07:30': '7:30 AM', '08:00': '8:00 AM' };
+const formatEidTime = time => {
+  if (!time) return 'Not set';
+  const [hours = '0', minutes = '00'] = time.split(':');
+  const numericHours = Number(hours);
+  const period = numericHours >= 12 ? 'PM' : 'AM';
+  const displayHours = numericHours % 12 || 12;
+  return `${displayHours}:${minutes} ${period}`;
+};
 
 const HeroBanner = memo(function HeroBanner({ stats }) {
+  const eidTimes = Object.keys(stats).sort();
+
   return (
     <section className="hero" aria-label="Eid Namaz hero section">
       <div className="hero__bg-pattern" aria-hidden="true" />
@@ -12,17 +21,17 @@ const HeroBanner = memo(function HeroBanner({ stats }) {
         <p className="hero__arabic">Eid Mubarak</p>
 
         <h1 className="hero__title">
-          Find Your <span className="hero__title-accent">Eid Namaz</span> Masjid
+          Bijapur <span className="hero__title-accent">Eid-ul-Adha Namaz Timing 2026</span>
         </h1>
 
         <p className="hero__subtitle">
-          Discover nearby masjids, Eid prayer timings, and get directions all in one place.
+          Eidgah & Masjid updates
         </p>
 
         <div className="hero__pills" role="list" aria-label="Eid prayer time summary">
-          {Object.entries(EID_TIME_LABELS).map(([time, label]) => (
+          {eidTimes.map(time => (
             <div key={time} className="hero__pill" role="listitem">
-              <span className="hero__pill-time">{label}</span>
+              <span className="hero__pill-time">{formatEidTime(time)}</span>
               <span className="hero__pill-count">
                 {stats[time] ?? 0} Masjid{(stats[time] ?? 0) !== 1 ? 's' : ''}
               </span>

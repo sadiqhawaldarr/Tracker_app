@@ -150,7 +150,7 @@
 
 /* ── Responsive ── */
 @media (max-width: 640px) {
-  .searchbar { top: 64px; padding: 12px var(--sp-md); }
+  .searchbar { top: 64px; padding: 12px 6px; }
   .searchbar__row { flex-direction: column; align-items: stretch; }
   .searchbar__field { min-width: unset; }
   .searchbar__select { min-width: unset; width: 100%; }

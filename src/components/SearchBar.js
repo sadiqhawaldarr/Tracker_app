@@ -3,12 +3,20 @@ import React, { memo, useCallback } from 'react';
 import './SearchBar.css';
 
 /* ── Constants ── */
-const EID_TIME_LABELS = { '07:00': '7:00 AM', '07:30': '7:30 AM', '08:00': '8:00 AM' };
 const SORT_OPTIONS = [
   { value: 'distance', label: 'Sort: Nearest'  },
   { value: 'time',     label: 'Sort: Eid Time' },
   { value: 'capacity', label: 'Sort: Capacity' },
 ];
+
+const formatEidTime = time => {
+  if (!time) return 'Not set';
+  const [hours = '0', minutes = '00'] = time.split(':');
+  const numericHours = Number(hours);
+  const period = numericHours >= 12 ? 'PM' : 'AM';
+  const displayHours = numericHours % 12 || 12;
+  return `${displayHours}:${minutes} ${period}`;
+};
 
 const SearchIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
@@ -42,6 +50,7 @@ const SearchBar = memo(function SearchBar({
   sortBy,
   resultCount,
   hasActiveFilters,
+  eidTimeOptions = [],
   onSearchChange,
   onTimeFilter,
   onSortChange,
@@ -83,8 +92,8 @@ const SearchBar = memo(function SearchBar({
             aria-label="Filter by Eid prayer time"
           >
             <option value="all">All Eid Times</option>
-            {Object.entries(EID_TIME_LABELS).map(([v, l]) => (
-              <option key={v} value={v}>Eid @ {l}</option>
+            {eidTimeOptions.map(time => (
+              <option key={time} value={time}>Eid @ {formatEidTime(time)}</option>
             ))}
           </select>
 
@@ -109,7 +118,7 @@ const SearchBar = memo(function SearchBar({
             </span>
             {selectedEidTime !== 'all' && (
               <span className="searchbar__badge">
-                🕌 Eid @ {EID_TIME_LABELS[selectedEidTime]}
+                🕌 Eid @ {formatEidTime(selectedEidTime)}
               </span>
             )}
             <button className="searchbar__reset" onClick={onClearFilters} aria-label="Clear all filters">

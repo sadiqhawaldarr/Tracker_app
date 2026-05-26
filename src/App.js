@@ -1,8 +1,6 @@
 import './App.css';
 
-import AdminDashboard from './components/AdminDashboard';
 import Header from './components/Header';
-import QiblaPreview from './components/QiblaPreview';
 import QiblaTracker from './components/QiblaTracker';
 import SearchBar from './components/SearchBar';
 import MasjidList from './components/MasjidList';
@@ -14,10 +12,9 @@ import useSelectedMasjid from './hooks/useSelectedMasjid';
 
 export default function App() {
   const { location, locationError, locationLoading, requestLocation } = useGeolocation();
-  const { masjids, error: masjidsError, refreshMasjids } = useMasjidsApi();
+  const { masjids, error: masjidsError } = useMasjidsApi();
   const { selectedMasjid, openMasjid, closeMasjid } = useSelectedMasjid();
   const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
-  const isAdminDashboard = currentPath === '/admin';
   const isTasbihCounter = currentPath === '/tasbih';
   const isQiblaTracker = currentPath === '/qibla';
 
@@ -28,6 +25,7 @@ export default function App() {
     filteredMasjids,
     hasActiveFilters,
     stats,
+    eidTimeOptions,
     handleSearchChange,
     handleTimeFilter,
     handleSortChange,
@@ -40,12 +38,10 @@ export default function App() {
         location={location}
         locationLoading={locationLoading}
         onRequestLocation={requestLocation}
-        currentView={isAdminDashboard ? 'admin' : isTasbihCounter ? 'tasbih' : isQiblaTracker ? 'qibla' : 'user'}
+        currentView={isTasbihCounter ? 'tasbih' : isQiblaTracker ? 'qibla' : 'user'}
       />
 
-      {isAdminDashboard ? (
-        <AdminDashboard allMasjids={masjids} onDataChanged={refreshMasjids} />
-      ) : isTasbihCounter ? (
+      {isTasbihCounter ? (
         <TasbihCounter />
       ) : isQiblaTracker ? (
         <QiblaTracker
@@ -63,15 +59,13 @@ export default function App() {
               sortBy={sortBy}
               resultCount={filteredMasjids.length}
               hasActiveFilters={hasActiveFilters}
+              eidTimeOptions={eidTimeOptions}
               onSearchChange={handleSearchChange}
               onTimeFilter={handleTimeFilter}
               onSortChange={handleSortChange}
               onClearFilters={clearFilters}
             />
           )}
-
-          {!selectedMasjid && <QiblaPreview />}
-
           <MasjidList
             masjids={filteredMasjids}
             stats={stats}
