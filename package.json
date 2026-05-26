@@ -1,6 +1,7 @@
 {
   "name": "masjid-finder",
   "version": "1.0.0",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "ajv": "^8.20.0",
