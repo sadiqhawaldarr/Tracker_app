@@ -1,12 +1,7 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import PrayerTimingCard from './PrayerTimingCard';
 
 const MasjidDetailsPage = memo(function MasjidDetailsPage({ masjid, onBack }) {
-  const handleNavigate = useCallback(() => {
-    const url = `https://www.google.com/maps/dir/?api=1&destination=${masjid.lat},${masjid.lng}&travelmode=walking`;
-    window.open(url, '_blank', 'noopener,noreferrer');
-  }, [masjid]);
-
   return (
     <main className="masjid-detail-page" aria-labelledby="masjid-detail-title">
       <button className="detail-back" type="button" onClick={onBack}>Back to masjids</button>
@@ -15,9 +10,6 @@ const MasjidDetailsPage = memo(function MasjidDetailsPage({ masjid, onBack }) {
         <div className="detail-hero__content">
           <span className="detail-hero__eyebrow">{masjid.area}</span>
           <h1 className="detail-hero__title" id="masjid-detail-title">{masjid.name}</h1>
-          <button className="detail-btn detail-btn--primary" type="button" onClick={handleNavigate}>
-            Get Directions
-          </button>
         </div>
       </section>
 
