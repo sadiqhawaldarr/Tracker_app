@@ -32,7 +32,7 @@ const EID_MASJIDS = [
   ['Purani Jamia Masjid, Langar Bazar', 'Langar Bazar', 'Purani Jamia Masjid, Langar Bazar, Bijapur', '09:30'],
   ['Dakhani Shahi Eidgah', 'Bijapur', 'Dakhani Shahi Eidgah, Bijapur', '10:00'],
   ['Alamgir Shahi Eidgah', 'Bijapur', 'Alamgir Shahi Eidgah, Bijapur', '10:00'],
-  ['Tarikhi Jamia Masjid', 'Bijapur', 'Tarikhi Jamia Masjid, Bijapur', '10:00'],
+  ['Jamiya Masjid', 'JM road Bijapur', 'Tarikhi Jamia Masjid, JM Road Bijapur', '10:00'],
   ['Khadde Masjid', 'Bijapur', 'Khadde Masjid, Bijapur', '10:15'],
   ['Masjid-e-Umar farooq', 'Ahmed colony ram nagar road', 'Ahmed colony ram nagar road, Bijapur', '07:00'],
   ['Sakaf Roza Eidgah', 'Urdu School No 4', 'Urdu School No 4, Bijapur', '07:15'],
@@ -70,6 +70,7 @@ const EID_MASJIDS = [
   ['Afzal masjid', 'Qureshi colony', 'Qureshi colony, Bijapur', '09:00'],
   ['itagi(mansoor) masjid', 'itagi colony behind itagi petrol pump', 'itagi colony behind itagi petrol pump, Bijapur', '07:15'],
   ['Taiyaba Masjid', 'Mahiboob nagar', 'Mahiboob nagar, Bijapur', '07:30'],
+  ['Al amaan Masjid', 'Bijapur', 'Bijapur, Bijapur', '6:20'],
 ];
 
 const MASJID_NAME_TRANSLATIONS = [
