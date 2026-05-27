@@ -59,6 +59,13 @@ const EID_MASJIDS = [
   ['Mubarak masjid', 'Bijapur', 'Bijapur', '08:00'],
   ['baitul mamur masjid', 'Bijapur', 'Bijapur', '08:30'],
   ['rangeen farroqi masjid', 'apsara talkies road bijapur', 'apsara talkies road bijapur', '06:45'],
+  ['Murtuj qadri darga', 'Bijapur', 'Murtuj qadri darga, Bijapur', '09:00'],
+  ['Firdous masjid', 'Neharu Nagar Gyang boudi', 'Neharu Nagar Gyang boudi, Bijapur', '07:30'],
+  ['Tajeem-tark dargah near Gandhi chowk', 'near Gandhi chowk', 'near Gandhi chowk, Bijapur', '08:00'],
+  ['Masjid e aqsa', 'mangoli road kk nagar', 'mangoli road kk nagar, Bijapur', '08:00'],
+  ['bilal masjid', 'Sai park madarsa', 'Sai park madarsa, Bijapur', '07:30'],
+  ['Bukhari masjid', 'Bijapur', 'Bukhari masjid, Bijapur', '08:30'],
+  ['Chandpur masjid', 'Bijapur', 'Chandpur masjid, Bijapur', '09:00'],
 ];
 
 const MASJID_NAME_TRANSLATIONS = [
