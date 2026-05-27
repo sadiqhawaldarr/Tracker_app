@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 
 const PRAYER_ROWS = [
-  { key: 'eidTime', label: 'Eid Namaz', azanOffset: 0, highlight: true },
+  { key: 'eidTime', label: 'Eid Namaz', highlight: true },
 ];
 
 function formatTime(time) {
@@ -11,15 +11,6 @@ function formatTime(time) {
   const period = hour >= 12 ? 'PM' : 'AM';
   const hour12 = hour % 12 || 12;
   return `${hour12}:${String(minute).padStart(2, '0')} ${period}`;
-}
-
-function addMinutes(time, minutesToAdd) {
-  const [hourText, minuteText] = time.split(':');
-  const total = Number(hourText) * 60 + Number(minuteText) + minutesToAdd;
-  const wrapped = ((total % 1440) + 1440) % 1440;
-  const hour = Math.floor(wrapped / 60);
-  const minute = wrapped % 60;
-  return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
 }
 
 const PrayerTimingCard = memo(function PrayerTimingCard({ masjid }) {
@@ -32,13 +23,11 @@ const PrayerTimingCard = memo(function PrayerTimingCard({ masjid }) {
       <div className="detail-timing__rows">
         <div className="detail-timing__row detail-timing__row--header">
           <span>Prayer</span>
-          <span>Azan</span>
-          <span>Jamaath</span>
+          <span>Time</span>
         </div>
 
         {PRAYER_ROWS.map(row => {
-          const azanTime = addMinutes(masjid[row.key], row.azanOffset);
-          const jamaathTime = masjid[row.key];
+          const prayerTime = masjid[row.key];
 
           return (
             <div
@@ -46,8 +35,7 @@ const PrayerTimingCard = memo(function PrayerTimingCard({ masjid }) {
               className={`detail-timing__row${row.highlight ? ' detail-timing__row--highlight' : ''}`}
             >
               <span className="detail-timing__name">{row.label}</span>
-              <time className="detail-timing__time" dateTime={azanTime}>{formatTime(azanTime)}</time>
-              <time className="detail-timing__time" dateTime={jamaathTime}>{formatTime(jamaathTime)}</time>
+              <time className="detail-timing__time" dateTime={prayerTime}>{formatTime(prayerTime)}</time>
             </div>
           );
         })}
