@@ -15,7 +15,7 @@ const QuerySection = memo(function QuerySection() {
       <div className="query-contact">
         <p className="query-contact__text">Share any query through Gmail.</p>
         <a className="query-contact__button" href={queryMailLink} target="_blank" rel="noreferrer">
-          Open Gmail
+          teamfisabilillahbijapur@gmail.com
         </a>
       </div>
     </section>
