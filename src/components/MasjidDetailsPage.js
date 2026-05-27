@@ -12,13 +12,9 @@ const MasjidDetailsPage = memo(function MasjidDetailsPage({ masjid, onBack }) {
       <button className="detail-back" type="button" onClick={onBack}>Back to masjids</button>
 
       <section className="detail-hero">
-        <img className="detail-hero__img" src={masjid.photo} alt={`${masjid.name} masjid exterior`} />
         <div className="detail-hero__content">
           <span className="detail-hero__eyebrow">{masjid.area}</span>
           <h1 className="detail-hero__title" id="masjid-detail-title">{masjid.name}</h1>
-          <p className="detail-hero__meta">
-            {masjid.distance} km away | Established {masjid.established}
-          </p>
           <button className="detail-btn detail-btn--primary" type="button" onClick={handleNavigate}>
             Get Directions
           </button>
@@ -40,7 +36,7 @@ const MasjidDetailsPage = memo(function MasjidDetailsPage({ masjid, onBack }) {
         </div>
         <div className="detail-info__item">
           <span className="detail-info__label">Capacity</span>
-          <span className="detail-info__value">{masjid.capacity.toLocaleString()} worshippers</span>
+          <span className="detail-info__value">&nbsp;</span>
         </div>
       </section>
 

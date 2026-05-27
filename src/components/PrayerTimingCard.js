@@ -1,11 +1,6 @@
 import React, { memo } from 'react';
 
 const PRAYER_ROWS = [
-  { key: 'fajr', label: 'Fajr', azanOffset: -20 },
-  { key: 'zuhr', label: 'Zuhr', azanOffset: -15 },
-  { key: 'asr', label: 'Asr', azanOffset: -15 },
-  { key: 'maghrib', label: 'Maghrib', azanOffset: 0 },
-  { key: 'isha', label: 'Isha', azanOffset: -15 },
   { key: 'eidTime', label: 'Eid Namaz', azanOffset: 0, highlight: true },
 ];
 
