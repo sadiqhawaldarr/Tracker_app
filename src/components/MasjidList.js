@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useState } from 'react';
 import HeroBanner from './HeroBanner';
 import MasjidDetailsPage from './MasjidDetailsPage';
+import QuerySection from './QuerySection';
 import SiteFooter from './SiteFooter';
 import './MasjidList.css';
 
@@ -124,6 +125,8 @@ const MasjidList = memo(function MasjidList({
             </table>
           </div>
         )}
+
+        <QuerySection />
       </main>
 
       <SiteFooter />
