@@ -66,6 +66,9 @@ const EID_MASJIDS = [
   ['bilal masjid', 'Sai park madarsa', 'Sai park madarsa, Bijapur', '07:30'],
   ['Bukhari masjid', 'Bijapur', 'Bukhari masjid, Bijapur', '08:30'],
   ['Chandpur masjid', 'Bijapur', 'Chandpur masjid, Bijapur', '09:00'],
+  ['Yaseen masjid', 'Near court bijapur', 'Near court bijapur', '20:30'],
+  ['Afzal masjid', 'Qureshi colony', 'Qureshi colony, Bijapur', '09:00'],
+  ['itagi(mansoor) masjid', 'itagi colony behind itagi petrol pump', 'itagi colony behind itagi petrol pump, Bijapur', '07:15'],
 ];
 
 const MASJID_NAME_TRANSLATIONS = [
