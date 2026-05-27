@@ -1,5 +1,6 @@
 // src/components/MasjidCard.js
 import React, { memo, useCallback } from 'react';
+import { getLocalizedMasjidName, useTranslation } from '../i18n';
 import './MasjidCard.css';
 
 const PinIcon = () => (
@@ -26,6 +27,8 @@ const PinIcon = () => (
  *   • useCallback  → stable event handler refs, prevents child btn re-renders.
  */
 const MasjidCard = memo(function MasjidCard({ masjid, animationDelay, onOpenModal, onNavigate }) {
+  const { language, t } = useTranslation();
+  const masjidName = getLocalizedMasjidName(masjid, language);
   const handleDetails  = useCallback(e  => { e.stopPropagation(); onOpenModal(masjid); },  [masjid, onOpenModal]);
   const handleNavigate = useCallback(e  => { e.stopPropagation(); onNavigate(masjid);  },  [masjid, onNavigate]);
   const titleId = `masjid-card-title-${masjid.id}`;
@@ -42,7 +45,7 @@ const MasjidCard = memo(function MasjidCard({ masjid, animationDelay, onOpenModa
         <img
           className="masjid-card__img"
           src={masjid.photo}
-          alt={`${masjid.name} masjid exterior`}
+          alt={`${masjidName} masjid exterior`}
           loading="lazy"
           decoding="async"
         />
@@ -55,7 +58,7 @@ const MasjidCard = memo(function MasjidCard({ masjid, animationDelay, onOpenModa
 
         {/* Name over image */}
         <div className="masjid-card__name-block">
-          <h3 className="masjid-card__name" id={titleId}>{masjid.name}</h3>
+          <h3 className="masjid-card__name" id={titleId}>{masjidName}</h3>
           <p  className="masjid-card__area">{masjid.area}</p>
         </div>
       </div>
@@ -85,14 +88,14 @@ const MasjidCard = memo(function MasjidCard({ masjid, animationDelay, onOpenModa
           <button
             className="masjid-card__btn masjid-card__btn--details"
             onClick={handleDetails}
-            aria-label={`View details for ${masjid.name}`}
+            aria-label={`View details for ${masjidName}`}
           >
-            Details
+            {t('details')}
           </button>
           <button
             className="masjid-card__btn masjid-card__btn--nav"
             onClick={handleNavigate}
-            aria-label={`Get directions to ${masjid.name}`}
+            aria-label={`Get directions to ${masjidName}`}
           >
             Navigate
           </button>

@@ -1,19 +1,18 @@
-// src/components/SearchBar.js
 import React, { memo, useCallback } from 'react';
+import { useTranslation } from '../i18n';
 import './SearchBar.css';
 
-/* ── Constants ── */
 const SORT_OPTIONS = [
-  { value: 'distance', label: 'Sort: Nearest'  },
-  { value: 'time',     label: 'Sort: Eid Time' },
-  { value: 'capacity', label: 'Sort: Capacity' },
+  { value: 'distance', labelKey: 'sortNearest' },
+  { value: 'time', labelKey: 'sortTime' },
+  { value: 'capacity', labelKey: 'sortCapacity' },
 ];
 
-const formatEidTime = time => {
-  if (!time) return 'Not set';
+const formatEidTime = (time, t) => {
+  if (!time) return t('notSet');
   const [hours = '0', minutes = '00'] = time.split(':');
   const numericHours = Number(hours);
-  const period = numericHours >= 12 ? 'PM' : 'AM';
+  const period = numericHours >= 12 ? t('pm') : t('am');
   const displayHours = numericHours % 12 || 12;
   return `${displayHours}:${minutes} ${period}`;
 };
@@ -26,24 +25,6 @@ const SearchIcon = () => (
   </svg>
 );
 
-/**
- * SearchBar
- * ─────────
- * Sticky filter bar: search input + Eid time dropdown + sort dropdown.
- *
- * Props:
- *   searchQuery      string
- *   selectedEidTime  string ('all' | '07:00' | '07:30' | '08:00')
- *   sortBy           string ('distance' | 'time' | 'capacity')
- *   resultCount      number
- *   hasActiveFilters boolean
- *   onSearchChange   fn(string)
- *   onTimeFilter     fn(string)
- *   onSortChange     fn(string)
- *   onClearFilters   fn()
- *
- * Optimisation: memo + useCallback handlers prevent child re-renders.
- */
 const SearchBar = memo(function SearchBar({
   searchQuery,
   selectedEidTime,
@@ -56,77 +37,70 @@ const SearchBar = memo(function SearchBar({
   onSortChange,
   onClearFilters,
 }) {
-  const handleInput   = useCallback(e => onSearchChange(e.target.value),  [onSearchChange]);
-  const handleTime    = useCallback(e => onTimeFilter(e.target.value),    [onTimeFilter]);
-  const handleSort    = useCallback(e => onSortChange(e.target.value),    [onSortChange]);
-  const handleClear   = useCallback(() => onSearchChange(''),             [onSearchChange]);
+  const { t } = useTranslation();
+  const handleInput = useCallback(e => onSearchChange(e.target.value), [onSearchChange]);
+  const handleTime = useCallback(e => onTimeFilter(e.target.value), [onTimeFilter]);
+  const handleSort = useCallback(e => onSortChange(e.target.value), [onSortChange]);
+  const handleClear = useCallback(() => onSearchChange(''), [onSearchChange]);
 
   return (
-    <nav className="searchbar" aria-label="Search and filter masjids">
+    <nav className="searchbar" aria-label={t('searchNavLabel')}>
       <div className="searchbar__inner">
-
-        {/* ── Inputs Row ── */}
         <div className="searchbar__row">
-
-          {/* Search */}
           <div className="searchbar__field">
             <span className="searchbar__icon"><SearchIcon /></span>
             <input
               className="searchbar__input"
               type="search"
-              placeholder="Search masjid, area, imam…"
+              placeholder={t('searchPlaceholder')}
               value={searchQuery}
               onChange={handleInput}
-              aria-label="Search masjids"
+              aria-label={t('searchMasjids')}
             />
             {searchQuery && (
-              <button className="searchbar__clear-x" onClick={handleClear} aria-label="Clear search">×</button>
+              <button className="searchbar__clear-x" onClick={handleClear} aria-label={t('clearSearch')}>x</button>
             )}
           </div>
 
-          {/* Eid time filter */}
           <select
             className="searchbar__select"
             value={selectedEidTime}
             onChange={handleTime}
-            aria-label="Filter by Eid prayer time"
+            aria-label={t('filterByEidTime')}
           >
-            <option value="all">All Eid Times</option>
+            <option value="all">{t('allEidTimes')}</option>
             {eidTimeOptions.map(time => (
-              <option key={time} value={time}>Eid @ {formatEidTime(time)}</option>
+              <option key={time} value={time}>{t('eidAt', { time: formatEidTime(time, t) })}</option>
             ))}
           </select>
 
-          {/* Sort */}
           <select
             className="searchbar__select"
             value={sortBy}
             onChange={handleSort}
-            aria-label="Sort masjids"
+            aria-label={t('sortMasjids')}
           >
-            {SORT_OPTIONS.map(o => (
-              <option key={o.value} value={o.value}>{o.label}</option>
+            {SORT_OPTIONS.map(option => (
+              <option key={option.value} value={option.value}>{t(option.labelKey)}</option>
             ))}
           </select>
         </div>
 
-        {/* ── Active-filter info row ── */}
         {hasActiveFilters && (
           <div className="searchbar__info" role="status" aria-live="polite">
             <span className="searchbar__count">
-              <strong>{resultCount}</strong> masjid{resultCount !== 1 ? 's' : ''} found
+              {t('resultFound', { count: resultCount })}
             </span>
             {selectedEidTime !== 'all' && (
               <span className="searchbar__badge">
-                🕌 Eid @ {formatEidTime(selectedEidTime)}
+                {t('eidAt', { time: formatEidTime(selectedEidTime, t) })}
               </span>
             )}
-            <button className="searchbar__reset" onClick={onClearFilters} aria-label="Clear all filters">
-              Clear all ×
+            <button className="searchbar__reset" onClick={onClearFilters} aria-label={t('clearAll')}>
+              {t('clearAll')}
             </button>
           </div>
         )}
-
       </div>
     </nav>
   );

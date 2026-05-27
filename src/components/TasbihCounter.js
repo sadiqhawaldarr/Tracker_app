@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import QiblaTracker from './QiblaTracker';
 import SiteFooter from './SiteFooter';
+import { useTranslation } from '../i18n';
 import './TasbihCounter.css';
 
 const PHRASES = [
@@ -13,6 +14,7 @@ const PHRASES = [
 const STORAGE_KEY = 'masjid-finder-tasbih';
 
 const TasbihCounter = memo(function TasbihCounter() {
+  const { t } = useTranslation();
   const [count, setCount] = useState(0);
   const [target, setTarget] = useState(PHRASES[0].target);
   const [phrase, setPhrase] = useState(PHRASES[0].label);
@@ -66,46 +68,46 @@ const TasbihCounter = memo(function TasbihCounter() {
       <main className="tasbih" aria-labelledby="tasbih-title">
         <section className="tasbih__panel">
           <div className="tasbih__intro">
-            <span className="tasbih__eyebrow">Digital Tasbih</span>
-            <h1 id="tasbih-title">Tasbih Counter</h1>
-            <p>Keep a saved count for daily dhikr with quick phrase targets.</p>
+            <span className="tasbih__eyebrow">{t('tasbihEyebrow')}</span>
+            <h1 id="tasbih-title">{t('tasbihTitle')}</h1>
+            <p>{t('tasbihIntro')}</p>
           </div>
 
           <div className="tasbih__counter" aria-live="polite">
             <div className="tasbih__device" aria-hidden="true">
               <div className="tasbih__screen">
-                <span>TASBEEH</span>
+                <span>{t('tasbeeh')}</span>
                 <strong>{count}</strong>
               </div>
               <div className="tasbih__device-row">
-                <span>COUNT</span>
-                <span>RESET</span>
+                <span>{t('countLabel')}</span>
+                <span>{t('resetLabel')}</span>
               </div>
-              <div className="tasbih__button-mark">Allah</div>
+              <div className="tasbih__button-mark">{t('allah')}</div>
             </div>
             <div className="tasbih__readout">
               <span className="tasbih__phrase">{phrase}</span>
               <strong>{count}</strong>
-              <span className="tasbih__target">of {target}</span>
+              <span className="tasbih__target">{t('ofTarget', { target })}</span>
             </div>
           </div>
 
-          <div className="tasbih__progress" aria-label={`${progress}% complete`}>
+          <div className="tasbih__progress" aria-label={t('progressComplete', { progress })}>
             <span style={{ width: `${progress}%` }} />
           </div>
 
           <button className="tasbih__tap" type="button" onClick={increment}>
-            Count
+            {t('count')}
           </button>
 
           <div className="tasbih__actions">
-            <button type="button" onClick={decrement}>Minus</button>
-            <button type="button" onClick={reset}>Reset</button>
+            <button type="button" onClick={decrement}>{t('minus')}</button>
+            <button type="button" onClick={reset}>{t('reset')}</button>
           </div>
 
           <div className="tasbih__settings">
             <label>
-              <span>Dhikr</span>
+              <span>{t('dhikr')}</span>
               <select value={phrase} onChange={handlePhrase}>
                 {PHRASES.map(item => (
                   <option key={item.label} value={item.label}>{item.label}</option>
@@ -113,7 +115,7 @@ const TasbihCounter = memo(function TasbihCounter() {
               </select>
             </label>
             <label>
-              <span>Target</span>
+              <span>{t('target')}</span>
               <input type="number" min="1" max="10000" value={target} onChange={handleTarget} />
             </label>
           </div>

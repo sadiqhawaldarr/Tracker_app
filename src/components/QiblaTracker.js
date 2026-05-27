@@ -1,5 +1,6 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import INDIA_LOCATIONS from '../data/indiaLocations';
+import { useTranslation } from '../i18n';
 import './QiblaTracker.css';
 
 const FALLBACK_LOCATION = {
@@ -29,9 +30,9 @@ function calculateBearing(from, to) {
   return normalize(toDeg(Math.atan2(y, x)));
 }
 
-function formatDirection(degrees) {
+function formatDirection(degrees, t) {
   const directions = ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'];
-  return directions[Math.round(degrees / 45) % directions.length];
+  return t(directions[Math.round(degrees / 45) % directions.length]);
 }
 
 const QiblaTracker = memo(function QiblaTracker({
@@ -41,6 +42,7 @@ const QiblaTracker = memo(function QiblaTracker({
   locationLoading = false,
   onRequestLocation,
 }) {
+  const { t } = useTranslation();
   const [localLocation, setLocalLocation] = useState(null);
   const [localError, setLocalError] = useState('');
   const [heading, setHeading] = useState(null);
@@ -73,15 +75,15 @@ const QiblaTracker = memo(function QiblaTracker({
       err => {
         setLocalError(
           err.code === 1
-            ? 'Location permission is needed for automatic Qibla direction.'
-            : 'Unable to read current location, using Bijapur fallback.'
+            ? t('locationPermissionNeeded')
+            : t('locationFallback')
         );
       },
       { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 }
     );
 
     return () => navigator.geolocation.clearWatch(watchId);
-  }, [onRequestLocation, providedLocation]);
+  }, [onRequestLocation, providedLocation, t]);
 
   useEffect(() => {
     if (selectedManualLocation || providedLocation || localLocation || !onRequestLocation || locationLoading) return;
@@ -105,7 +107,7 @@ const QiblaTracker = memo(function QiblaTracker({
 
   const enableCompass = useCallback(async () => {
     if (!window.DeviceOrientationEvent) {
-      setCompassError('Compass direction is not supported on this device.');
+      setCompassError(t('compassUnsupported'));
       return;
     }
 
@@ -113,18 +115,18 @@ const QiblaTracker = memo(function QiblaTracker({
       if (typeof window.DeviceOrientationEvent.requestPermission === 'function') {
         const result = await window.DeviceOrientationEvent.requestPermission();
         if (result !== 'granted') {
-          setCompassError('Compass permission was not allowed.');
+          setCompassError(t('compassDenied'));
           return;
         }
       }
 
       window.addEventListener('deviceorientation', handleOrientation, true);
       window.addEventListener('deviceorientationabsolute', handleOrientation, true);
-      setCompassError('Move your phone in a small figure-eight if the compass needs calibration.');
+      setCompassError(t('compassCalibration'));
     } catch {
-      setCompassError('Compass permission could not be opened.');
+      setCompassError(t('compassCouldNotOpen'));
     }
-  }, [handleOrientation]);
+  }, [handleOrientation, t]);
 
   const handleStateSelect = useCallback(e => {
     const nextState = e.target.value;
@@ -160,39 +162,42 @@ const QiblaTracker = memo(function QiblaTracker({
   const needleRotation = heading === null ? qiblaBearing : normalize(qiblaBearing - heading);
   const displayBearing = qiblaBearing.toFixed(2);
   const displayNeedle = needleRotation.toFixed(2);
-  const directionLabel = formatDirection(qiblaBearing);
+  const directionLabel = formatDirection(qiblaBearing, t);
   const activeError = locationError || localError;
 
   return (
     <section className={compact ? 'qibla qibla--compact' : 'qibla'} aria-labelledby="qibla-title">
       <div className="qibla__content">
-        <span className="qibla__eyebrow">Qibla Tracker</span>
-        <h2 id="qibla-title">Live Qibla Direction</h2>
+        <span className="qibla__eyebrow">{t('qiblaEyebrow')}</span>
+        <h2 id="qibla-title">{t('qiblaTitle')}</h2>
         <p>
-          Face <strong>{displayBearing} deg</strong> from true north toward {directionLabel}.
-          {heading !== null && ` Relative to your current facing direction, turn ${displayNeedle} deg.`}
+          {t('qiblaInstruction', {
+            bearing: displayBearing,
+            direction: directionLabel,
+            needle: heading !== null ? displayNeedle : '',
+          })}
         </p>
 
         <dl className="qibla__facts">
           <div>
-            <dt>Current location</dt>
+            <dt>{t('currentLocation')}</dt>
             <dd>
               {activeLocation.lat.toFixed(4)} deg N, {activeLocation.lng.toFixed(4)} deg E
-              {isManual ? ` (${activeLocation.name}, ${selectedState})` : isFallback ? ' (Bijapur fallback)' : ''}
+              {isManual ? ` (${activeLocation.name}, ${selectedState})` : isFallback ? t('fallbackSuffix') : ''}
               {activeLocation.accuracy ? `, +/- ${Math.round(activeLocation.accuracy)} m` : ''}
             </dd>
           </div>
           <div>
-            <dt>Destination</dt>
+            <dt>{t('destination')}</dt>
             <dd>{KAABA_LOCATION.name}</dd>
           </div>
         </dl>
 
         <div className="qibla__selectors">
           <label className="qibla__select">
-            <span>Select state / UT</span>
+            <span>{t('selectState')}</span>
             <select value={selectedState} onChange={handleStateSelect}>
-              <option value="live">Automatic current location</option>
+              <option value="live">{t('automaticLocation')}</option>
               {INDIA_LOCATIONS.map(item => (
                 <option key={item.state} value={item.state}>{item.state}</option>
               ))}
@@ -200,10 +205,10 @@ const QiblaTracker = memo(function QiblaTracker({
           </label>
 
           <label className="qibla__select">
-            <span>Select city</span>
+            <span>{t('selectCity')}</span>
             <select value={selectedCity} onChange={handleCitySelect} disabled={!selectedStateData}>
               {!selectedStateData ? (
-                <option value="">Choose a state first</option>
+                <option value="">{t('chooseStateFirst')}</option>
               ) : (
                 selectedStateData.cities.map(city => (
                   <option key={city.name} value={city.name}>{city.name}</option>
@@ -216,10 +221,10 @@ const QiblaTracker = memo(function QiblaTracker({
         <div className="qibla__actions">
           {onRequestLocation && (
             <button type="button" onClick={handleUseCurrentLocation} disabled={locationLoading}>
-              {locationLoading ? 'Locating...' : 'Use My Location'}
+              {locationLoading ? t('locating') : t('useMyLocation')}
             </button>
           )}
-          <button type="button" onClick={enableCompass}>Enable Compass</button>
+          <button type="button" onClick={enableCompass}>{t('enableCompass')}</button>
         </div>
 
         {(activeError || compassError) && (
@@ -227,7 +232,7 @@ const QiblaTracker = memo(function QiblaTracker({
         )}
       </div>
 
-      <div className="qibla__dial" aria-label={`Qibla direction ${displayBearing} degrees from true north`}>
+      <div className="qibla__dial" aria-label={t('qiblaDialLabel', { bearing: displayBearing })}>
         <span className="qibla__mark qibla__mark--n">N</span>
         <span className="qibla__mark qibla__mark--e">E</span>
         <span className="qibla__mark qibla__mark--s">S</span>
@@ -237,7 +242,7 @@ const QiblaTracker = memo(function QiblaTracker({
         </span>
         <span className="qibla__center" />
         <strong className="qibla__degree">{displayBearing} deg</strong>
-        {heading !== null && <span className="qibla__heading">Facing {heading.toFixed(0)} deg</span>}
+        {heading !== null && <span className="qibla__heading">{t('facing', { heading: heading.toFixed(0) })}</span>}
       </div>
     </section>
   );

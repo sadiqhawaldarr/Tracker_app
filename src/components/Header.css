@@ -81,6 +81,30 @@
   color: #fff;
 }
 
+.header__language {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 4px 8px;
+  border: 1px solid rgba(20, 107, 93, 0.14);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.header__language select {
+  border: 0;
+  background: transparent;
+  color: var(--emerald);
+  font: inherit;
+  outline: 0;
+}
+
 .header__crescent {
   font-size: 26px;
   line-height: 1;
@@ -180,4 +204,6 @@
   .header__actions     { gap: 5px; min-width: 0; }
   .header__nav         { gap: 3px; padding: 3px; }
   .header__nav-link    { padding: 7px 6px; font-size: 11px; }
+  .header__language    { padding: 4px 5px; }
+  .header__language span { display: none; }
 }

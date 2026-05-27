@@ -3,13 +3,14 @@ import HeroBanner from './HeroBanner';
 import MasjidDetailsPage from './MasjidDetailsPage';
 import QuerySection from './QuerySection';
 import SiteFooter from './SiteFooter';
+import { getLocalizedMasjidName, useTranslation } from '../i18n';
 import './MasjidList.css';
 
-const formatEidTime = time => {
-  if (!time) return 'Not set';
+const formatEidTime = (time, t) => {
+  if (!time) return t('notSet');
   const [hours = '0', minutes = '00'] = time.split(':');
   const numericHours = Number(hours);
-  const period = numericHours >= 12 ? 'PM' : 'AM';
+  const period = numericHours >= 12 ? t('pm') : t('am');
   const displayHours = numericHours % 12 || 12;
   return `${displayHours}:${minutes} ${period}`;
 };
@@ -24,6 +25,7 @@ const MasjidList = memo(function MasjidList({
   onOpenMasjid,
   onCloseMasjid,
 }) {
+  const { language, t } = useTranslation();
   const [openAddressId, setOpenAddressId] = useState(null);
 
   const handleAddressToggle = useCallback(id => {
@@ -43,15 +45,15 @@ const MasjidList = memo(function MasjidList({
     <>
       <HeroBanner stats={stats} />
 
-      <main className="masjid-list" id="masjid-list" aria-label="Masjid listings">
-        <section className="masjid-list__audio" aria-label="Eid takbeer audio">
+      <main className="masjid-list" id="masjid-list" aria-label={t('listingsLabel')}>
+        <section className="masjid-list__audio" aria-label={t('audioLabel')}>
           <div>
-            <span className="masjid-list__audio-label">Eid Takbeer</span>
-            <h2 className="masjid-list__audio-title">Listen before checking namaz timings</h2>
+            <span className="masjid-list__audio-label">{t('audioName')}</span>
+            <h2 className="masjid-list__audio-title">{t('audioTitle')}</h2>
           </div>
           <audio className="masjid-list__audio-player" controls preload="metadata">
             <source src={publicAsset('/eid-takbeer.mp3')} type="audio/mpeg" />
-            Your browser does not support the audio element.
+            {t('audioUnsupported')}
           </audio>
         </section>
 
@@ -63,64 +65,68 @@ const MasjidList = memo(function MasjidList({
 
         {masjids.length === 0 ? (
           <div className="masjid-list__empty" role="status">
-            <span className="masjid-list__empty-icon" aria-hidden="true">No results</span>
-            <h2 className="masjid-list__empty-title">No Masjids Found</h2>
-            <p className="masjid-list__empty-sub">Try adjusting your search or removing a filter.</p>
+            <span className="masjid-list__empty-icon" aria-hidden="true">{t('noResults')}</span>
+            <h2 className="masjid-list__empty-title">{t('noMasjidsFound')}</h2>
+            <p className="masjid-list__empty-sub">{t('emptySub')}</p>
           </div>
         ) : (
           <div className="masjid-list__table-wrap">
             <table className="masjid-list__table">
               <thead>
                 <tr>
-                  <th className="masjid-list__count-head" scope="col">No.</th>
-                  <th scope="col">Masjid Name</th>
-                  <th scope="col">Address</th>
-                  <th scope="col">Eid Time</th>
+                  <th className="masjid-list__count-head" scope="col">{t('no')}</th>
+                  <th scope="col">{t('masjidName')}</th>
+                  <th scope="col">{t('address')}</th>
+                  <th scope="col">{t('eidTime')}</th>
                 </tr>
               </thead>
               <tbody>
-                {masjids.map((masjid, index) => (
+                {masjids.map((masjid, index) => {
+                  const masjidName = getLocalizedMasjidName(masjid, language);
+
+                  return (
                   <React.Fragment key={masjid.id}>
                     <tr>
-                      <td className="masjid-list__count" data-label="No.">
+                      <td className="masjid-list__count" data-label={t('no')}>
                         {index + 1}
                       </td>
-                      <td data-label="Masjid Name">
+                      <td data-label={t('masjidName')}>
                         <button
                           className="masjid-list__name-button"
                           type="button"
                           onClick={() => onOpenMasjid(masjid)}
                         >
-                          {masjid.name}
+                          {masjidName}
                         </button>
                         <span className="masjid-list__area">{masjid.area}</span>
                       </td>
-                      <td data-label="Address">
+                      <td data-label={t('address')}>
                         <button
                           className="masjid-list__address-button"
                           type="button"
                           onClick={() => handleAddressToggle(masjid.id)}
                           aria-expanded={openAddressId === masjid.id}
                         >
-                          Address
+                          {t('address')}
                         </button>
                       </td>
-                      <td data-label="Eid Time">
+                      <td data-label={t('eidTime')}>
                         <time className="masjid-list__eid-time" dateTime={masjid.eidTime}>
-                          {formatEidTime(masjid.eidTime)}
+                          {formatEidTime(masjid.eidTime, t)}
                         </time>
                       </td>
                     </tr>
                     {openAddressId === masjid.id && (
                       <tr className="masjid-list__address-row">
                         <td colSpan="4">
-                          <span className="masjid-list__address-label">Address</span>
+                          <span className="masjid-list__address-label">{t('address')}</span>
                           {masjid.address}
                         </td>
                       </tr>
                     )}
                   </React.Fragment>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>

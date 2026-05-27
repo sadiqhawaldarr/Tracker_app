@@ -1,4 +1,5 @@
 import React, { memo, useCallback } from 'react';
+import { useTranslation } from '../i18n';
 import './Header.css';
 
 const LocationIcon = () => (
@@ -23,6 +24,7 @@ const Header = memo(function Header({
   currentView = 'user',
 }) {
   const isLocated = Boolean(location);
+  const { language, languages, setLanguage, t } = useTranslation();
 
   const handleClick = useCallback(() => {
     if (!locationLoading) onRequestLocation();
@@ -31,37 +33,46 @@ const Header = memo(function Header({
   return (
     <header className="header" role="banner">
       <div className="header__inner">
-        <a className="header__logo" href="/" aria-label="Masjid Finder home">
+        <a className="header__logo" href="/" aria-label={t('brandHome')}>
           <span className="header__crescent" aria-hidden="true">☪</span>
           <div className="header__brand">
-            <span className="header__brand-title">EID MUBARAK</span>
-            <span className="header__brand-sub">MASJID FINDER - VIJAYAPURA</span>
+            <span className="header__brand-title">{t('brandTitle')}</span>
+            <span className="header__brand-sub">{t('brandSub')}</span>
           </div>
         </a>
 
         <div className="header__actions">
-          <nav className="header__nav" aria-label="Dashboard navigation">
+          <nav className="header__nav" aria-label={t('navLabel')}>
             <a className={currentView === 'user' ? 'header__nav-link header__nav-link--active' : 'header__nav-link'} href="/">
-              User
+              {t('navUser')}
             </a>
             <a className={currentView === 'tasbih' ? 'header__nav-link header__nav-link--active' : 'header__nav-link'} href="/tasbih">
-              Tasbih
+              {t('navTasbih')}
             </a>
             <a className={currentView === 'qibla' ? 'header__nav-link header__nav-link--active' : 'header__nav-link'} href="/qibla">
-              Qibla
+              {t('navQibla')}
             </a>
           </nav>
+
+          <label className="header__language">
+            <span>{t('language')}</span>
+            <select value={language} onChange={event => setLanguage(event.target.value)}>
+              {languages.map(item => (
+                <option key={item.code} value={item.code}>{item.label}</option>
+              ))}
+            </select>
+          </label>
 
           {currentView === 'user' && (
             <button
               className={`header__geo-btn${isLocated ? ' header__geo-btn--active' : ''}`}
               onClick={handleClick}
               disabled={locationLoading}
-              aria-label={isLocated ? 'Location already set' : 'Use my current location'}
+              aria-label={isLocated ? t('locationSetLabel') : t('useLocationLabel')}
             >
               {isLocated ? <CheckIcon /> : <LocationIcon />}
               <span className="header__geo-label">
-                {locationLoading ? 'Locating...' : isLocated ? 'Location Set' : 'Use My Location'}
+                {locationLoading ? t('locating') : isLocated ? t('locationSet') : t('useMyLocation')}
               </span>
             </button>
           )}

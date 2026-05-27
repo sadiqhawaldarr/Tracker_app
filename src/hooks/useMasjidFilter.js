@@ -14,6 +14,9 @@ export default function useMasjidFilter(masjids) {
       list = list.filter(
         masjid =>
           masjid.name.toLowerCase().includes(query) ||
+          Object.values(masjid.nameTranslations || {}).some(name =>
+            name.toLowerCase().includes(query)
+          ) ||
           masjid.area.toLowerCase().includes(query) ||
           masjid.address.toLowerCase().includes(query) ||
           masjid.imam.toLowerCase().includes(query)

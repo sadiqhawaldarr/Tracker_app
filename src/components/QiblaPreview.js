@@ -1,7 +1,10 @@
 import React, { memo } from 'react';
+import { useTranslation } from '../i18n';
 import './QiblaPreview.css';
 
 const QiblaPreview = memo(function QiblaPreview() {
+  const { t } = useTranslation();
+
   return (
     <section className="qibla-preview" aria-labelledby="qibla-preview-title">
       <div className="qibla-preview__dial" aria-hidden="true">
@@ -15,10 +18,10 @@ const QiblaPreview = memo(function QiblaPreview() {
       </div>
 
       <div className="qibla-preview__content">
-        <span>Qibla Direction</span>
-        <h2 id="qibla-preview-title">Find Qibla From Your City</h2>
-        <p>Select any Indian state and city, or use live location with compass movement.</p>
-        <a className="qibla-preview__button" href="/qibla">Open Qibla Direction</a>
+        <span>{t('qiblaPreviewEyebrow')}</span>
+        <h2 id="qibla-preview-title">{t('qiblaPreviewTitle')}</h2>
+        <p>{t('qiblaPreviewText')}</p>
+        <a className="qibla-preview__button" href="/qibla">{t('qiblaPreviewButton')}</a>
       </div>
     </section>
   );
