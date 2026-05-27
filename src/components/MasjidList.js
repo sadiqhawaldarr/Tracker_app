@@ -71,15 +71,19 @@ const MasjidList = memo(function MasjidList({
             <table className="masjid-list__table">
               <thead>
                 <tr>
+                  <th className="masjid-list__count-head" scope="col">No.</th>
                   <th scope="col">Masjid Name</th>
                   <th scope="col">Address</th>
                   <th scope="col">Eid Time</th>
                 </tr>
               </thead>
               <tbody>
-                {masjids.map(masjid => (
+                {masjids.map((masjid, index) => (
                   <React.Fragment key={masjid.id}>
                     <tr>
+                      <td className="masjid-list__count" data-label="No.">
+                        {index + 1}
+                      </td>
                       <td data-label="Masjid Name">
                         <button
                           className="masjid-list__name-button"
@@ -108,7 +112,7 @@ const MasjidList = memo(function MasjidList({
                     </tr>
                     {openAddressId === masjid.id && (
                       <tr className="masjid-list__address-row">
-                        <td colSpan="3">
+                        <td colSpan="4">
                           <span className="masjid-list__address-label">Address</span>
                           {masjid.address}
                         </td>

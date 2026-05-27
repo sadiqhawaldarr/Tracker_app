@@ -11,6 +11,7 @@ const formatEidTime = time => {
 
 const HeroBanner = memo(function HeroBanner({ stats }) {
   const eidTimes = Object.keys(stats).sort();
+  const totalMasjids = eidTimes.reduce((total, time) => total + (stats[time] ?? 0), 0);
 
   return (
     <section className="hero" aria-label="Eid Namaz hero section">
@@ -26,6 +27,10 @@ const HeroBanner = memo(function HeroBanner({ stats }) {
 
         <p className="hero__subtitle">
           Eidgah & Masjid updates
+        </p>
+
+        <p className="hero__total" aria-live="polite">
+          Total Masjids: <strong>{totalMasjids}</strong>
         </p>
 
         <div className="hero__pills" role="list" aria-label="Eid prayer time summary">
